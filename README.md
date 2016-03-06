@@ -19,11 +19,18 @@ In the case of Adam and Eve Street for example, it would calculate +1 (for Adam)
 
 More Data
 =========
-The streetnames were a little ambiguous and so we used a new dataset obtained from a new team member (second_streets.csv) that includes half a postcode in the street name. This contains 12000 streets from London and the new team member had previously integrated this list with CartoDB so we felt we could more easily plot the results using this dataset.
 
-The script had to be adapted (second_script.py) in order to properly capitalize the full caps lock format of the street names and to make sure it handled the new column types etc. 
+In order to georeference the streets, we used an existing dataset which another member of the team had extracted for a previous project which contained 12000 streets (london_streets.kml). This dataset had been based on the Ordnance Survey's (Open Data but now obselete) Meridian2 product - https://www.ordnancesurvey.co.uk/business-and-government/products/meridian2.html
+
+In future, the Ordnance Survey's 'Open Roads' product could be used to the same effect:
+https://www.ordnancesurvey.co.uk/business-and-government/products/os-open-roads.html
+
+The street names had been joined to a postcode district to avoid ambiguity of location (streets with the same name in different places). The Sexmachine script was run again on the streetnames from this dataset (second_streets.csv). The script had to be adapted (second_script.py) in order to properly capitalize the full caps lock format of the street names and to make sure it handled the new column types etc. 
 
 Results of running the script on the new data can be found in  second_results.csv
+
+The gender scores in the resulting CSV were converted to descriptions ('male', 'female', 'neutral') in Excel to make the map's legend more understandable, then loaded into CartoDB. The csv was joined on the Street Name field to a KML file (london_streets.kml) in CartoDB and the streets colour coded according to the gender field (orange for female, blue for male).
+
 
 Observations
 ============
