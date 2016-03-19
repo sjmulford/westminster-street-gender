@@ -20,16 +20,20 @@ In the case of Adam and Eve Street for example, it would calculate +1 (for Adam)
 More Data
 =========
 
-In order to georeference the streets, we used an existing dataset which another member of the team had extracted for a previous project which contained 12000 streets (london_streets.kml). This dataset had been based on the Ordnance Survey's (Open Data but now obselete) Meridian2 product - https://www.ordnancesurvey.co.uk/business-and-government/products/meridian2.html
+In order to georeference the streets, we used an existing dataset which another member of the team had extracted for a previous project which contained 12000 streets (london_streets.kml). The Ordnance Survey Meridian2 was used but as this is being discontinued, OpenRoads (https://www.ordnancesurvey.co.uk/business-and-government/products/os-open-roads.html) could be used instead.
 
-In future, the Ordnance Survey's 'Open Roads' product could be used to the same effect:
-https://www.ordnancesurvey.co.uk/business-and-government/products/os-open-roads.html
+The roads data was downloaded in Shapefile format from the OS and loaded into QGis. In QGis, the road data covered by the study area selected and exported to a KML file (http://gis.stackexchange.com/questions/110352/save-selection-option-in-qgis-2-4-0). 
+
+This new file was then exported again as a CSV, and this is the file which the gender-assigning Python script was run.
 
 The street names had been joined to a postcode district to avoid ambiguity of location (streets with the same name in different places). The Sexmachine script was run again on the streetnames from this dataset (second_streets.csv). The script had to be adapted (second_script.py) in order to properly capitalize the full caps lock format of the street names and to make sure it handled the new column types etc. 
 
 Results of running the script on the new data can be found in  second_results.csv
 
-The gender scores in the resulting CSV were converted to descriptions ('male', 'female', 'neutral') in Excel to make the map's legend more understandable, then loaded into CartoDB. The csv was joined on the Street Name field to a KML file (london_streets.kml) in CartoDB and the streets colour coded according to the gender field (orange for female, blue for male).
+The gender scores in the resulting CSV were converted to descriptions ('male', 'female', 'neutral') in Excel to make the map's legend more understandable. Once the gender was assigned to each road, both the new KML file (containing road names and geometry) and the CSV (containing road names and gender) were loaded into Cartodb. Here we did a join on the road names using CartoDB’s ‘Column Join’ function (http://docs.cartodb.com/cartodb-editor/managing-your-data/#merge-by-column-join)
+
+In CartoDB the streets were colour coded according to the gender field -  orange for female, blue for male.  (http://docs.cartodb.com/tutorials/conditional_styling/)
+
 
 
 Observations
